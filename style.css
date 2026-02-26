@@ -433,4 +433,8 @@ body {
   }
   .nav-links.open { display: flex; }
   .nav-link { display: block; padding: 0.75rem; }
+  .hero { padding: 2.5rem 1rem 2rem; }
+  .cookie-banner-inner { flex-direction: column; align-items: stretch; text-align: center; }
+  .cookie-banner-actions { flex-direction: column; }
+  .cookie-banner-actions .btn { width: 100%; min-height: 44px; }
 }
