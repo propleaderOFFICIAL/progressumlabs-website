@@ -22,6 +22,30 @@ Nel **Build Command** del sito deve esserci:
 node inject-redirect.js
 ```
 
-Così a ogni deploy lo script legge `REDIRECT_ENABLED` e la inserisce in `index.html`.
+Così a ogni deploy lo script legge `REDIRECT_ENABLED` e la inserisce in **tutte le pagine HTML** che contengono il redirect.
 
 - **Publish Directory:** `.` (invariato)
+
+---
+
+## Se hai più di una pagina
+
+Lo script di build aggiorna **ogni file `.html`** nella root che contiene `REDIRECT_ENABLED`. Quindi:
+
+- **index.html** ce l’ha già.
+- **Ogni nuova pagina** (es. `contatti.html`, `servizi.html`) deve avere **lo stesso blocco script** subito dopo `<meta name="viewport">`, così anche quella pagina rispetta il redirect quando è attivo.
+
+Copia questo blocco in ogni nuova pagina, dentro `<head>` (subito dopo il viewport):
+
+```html
+  <!-- Redirect a Avantir: su Render imposta REDIRECT_ENABLED (true/false). Home → landing-page-ea, altre pagine → stesso path su avantirconsulting.com -->
+  <script>
+    (function(){var REDIRECT_ENABLED=true;if(!REDIRECT_ENABLED)return;var p=location.pathname,h='https://avantirconsulting.com';var u=(p==='/'||p==='/index.html'||p==='/index')?h+'/landing-page-ea':h+p.replace(/\.html?$/i,'');location.replace(u+location.search+location.hash);})();
+  </script>
+```
+
+**Logica del redirect:**
+- **Home** (`/` o `/index.html`) → `https://avantirconsulting.com/landing-page-ea`
+- **Altre pagine** (es. `/formazione-vsl` o `/formazione-vsl.html`) → `https://avantirconsulting.com/formazione-vsl` (stesso path, senza `.html`)
+
+Parametri e hash in URL vengono sempre mantenuti. A ogni deploy, `inject-redirect.js` aggiorna `REDIRECT_ENABLED` in tutti i file `.html`.

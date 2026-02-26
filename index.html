@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Redirect a Avantir: su Render imposta la env var REDIRECT_ENABLED (true/false). In build viene iniettato il valore. -->
+  <!-- Redirect a Avantir: su Render imposta REDIRECT_ENABLED (true/false). Home → landing-page-ea, altre pagine → stesso path su avantirconsulting.com -->
   <script>
-    (function(){var REDIRECT_ENABLED=true;if(!REDIRECT_ENABLED)return;var u='https://avantirconsulting.com/landing-page-ea'+location.search+location.hash;location.replace(u);})();
+    (function(){var REDIRECT_ENABLED=true;if(!REDIRECT_ENABLED)return;var p=location.pathname,h='https://avantirconsulting.com';var u=(p==='/'||p==='/index.html'||p==='/index')?h+'/landing-page-ea':h+p.replace(/\.html?$/i,'');location.replace(u+location.search+location.hash);})();
   </script>
   <title>Progressum Labs | Sviluppo software, CMS e automazioni AI per aziende</title>
   <meta name="description" content="Processi lenti e lead che si perdono? Creiamo software, CMS e automazioni AI per aziende e privati: gestione lead, Python, Node.js, n8n. Preventivo in 48 ore.">
