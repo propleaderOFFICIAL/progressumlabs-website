@@ -14,15 +14,19 @@ Tu o i tuoi colleghi potete attivare/disattivare il redirect verso Avantir **dal
 
 Dopo ogni modifica alla variabile serve un **nuovo deploy** perché il valore viene scritto nell’HTML in fase di build.
 
-## Build Command su Render
+## Build Command su Render (obbligatorio per la variabile)
 
-Nel **Build Command** del sito deve esserci:
+**Se il redirect resta attivo anche con REDIRECT_ENABLED=false, di solito il Build Command non è impostato o non viene eseguito.**
+
+Nel **Build Command** del sito **deve** esserci (campo non vuoto):
 
 ```bash
 node inject-redirect.js
 ```
 
-Così a ogni deploy lo script legge `REDIRECT_ENABLED` e la inserisce in **tutte le pagine HTML** che contengono il redirect.
+Solo così a ogni deploy lo script legge `REDIRECT_ENABLED` dall’Environment e la scrive in tutte le pagine HTML. Senza questo comando, viene servito l’HTML del repo (redirect = false di default).
+
+Dopo aver cambiato la variabile in Environment, fai **Manual Deploy** (o “Clear build cache & deploy”) perché il valore viene applicato in fase di build.
 
 - **Publish Directory:** `.` (invariato)
 

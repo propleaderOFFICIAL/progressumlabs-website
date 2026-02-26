@@ -7,7 +7,7 @@
  * true  = redirect attivo (tutti vanno su Avantir)
  * false = redirect spento (si vede il sito Progressum Labs)
  *
- * Se la variabile non è impostata, default = true (redirect attivo).
+ * Se la variabile non è impostata, default = true (redirect attivo). Se il build non viene eseguito, resta il valore nel repo (false = sito visibile).
  *
  * Con più pagine: ogni .html deve contenere lo stesso script di redirect
  * (vedi RENDER.md). Questo script aggiorna REDIRECT_ENABLED in tutti i file .html.
